@@ -7,7 +7,7 @@
     body { background:#0d0d0d; color:#e0e0e0; font-family:Arial,sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
     .container { background:#1a1a1a; padding:20px; border-radius:10px; width:90%; max-width:600px; box-shadow:0 0 20px #0ff, 0 0 40px #f0f; }
     h1 { text-align:center; color:#0ff; }
-    textarea, select, input { width:100%; margin:10px 0; padding:10px; border-radius:5px; border:none; font-size:1em; }
+    textarea, input { width:100%; margin:10px 0; padding:10px; border-radius:5px; border:none; font-size:1em; }
     button { width:100%; padding:12px; background:linear-gradient(90deg,#0ff,#f0f); border:none; border-radius:5px; color:black; font-weight:bold; cursor:pointer; font-size:1.1em; }
     button:hover { opacity:0.8; }
     .output { margin-top:20px; padding:15px; background:#0d0d0d; border-radius:5px; white-space:pre-wrap; }
@@ -17,10 +17,11 @@
 <body>
   <div class="container">
     <h1>Prompt ⚡️Magic<br><small>by JI Innovations</small></h1>
+
     <label>Your Idea:</label>
     <textarea id="idea" rows="4" placeholder="Type your idea here..."></textarea>
 
-    <label>Optional API Key (for better AI):</label>
+    <label>Optional OpenAI API Key (for smarter results):</label>
     <input type="password" id="apiKey" placeholder="Paste your key (optional)" />
 
     <button onclick="generatePrompt()">Generate Prompt</button>
@@ -35,14 +36,15 @@
       const output = document.getElementById('output');
 
       if (!idea) {
-        output.textContent = "Please enter an idea first!";
+        output.textContent = "⚠️ Please enter an idea first!";
         return;
       }
 
-      // If API key present, call OpenAI
+      // API route if user provides key
       if (apiKey) {
         try {
-          output.textContent = "Refining your idea into a powerful prompt... ✨";
+          output.textContent = "🔮 Thinking deeply and refining your prompt...";
+
           const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -54,24 +56,45 @@
               messages: [
                 {
                   role: "system",
-                  content: "You are a prompt refining assistant. Rewrite the user’s raw idea into a single, clear, powerful prompt they can copy-paste into any AI. Do NOT repeat their idea word-for-word. Do NOT include instructions or rules. Just output the improved prompt."
+                  content: "You are a professional prompt refiner. Your ONLY job is to transform the user’s rough idea into a single, clear, powerful prompt. Do not echo their idea. Do not explain. Just output the improved prompt."
                 },
                 { role: "user", content: idea }
               ],
-              max_tokens: 200
+              max_tokens: 300
             })
           });
 
-          if (!response.ok) throw new Error("API request failed");
+          if (!response.ok) throw new Error("Request failed: " + response.status);
+
           const data = await response.json();
-          output.textContent = data.choices?.[0]?.message?.content?.trim() || "Error: No response.";
+          const refined = data.choices?.[0]?.message?.content?.trim();
+
+          output.textContent = refined || "⚠️ No response from AI.";
         } catch (err) {
-          output.textContent = "Error: " + err.message;
+          output.textContent = "❌ Error: " + err.message + "\n(This may be blocked by browser CORS. Works best with a small proxy server.)";
         }
       } else {
-        // No API key → basic offline fallback (not great, but works)
-        output.textContent = `Refined Prompt:\nWrite a clear, detailed response about: ${idea}`;
+        // Smarter offline fallback (no API key)
+        output.textContent = "✨ Refined Prompt:\n" + improveLocally(idea);
       }
+    }
+
+    // A smarter offline refiner
+    function improveLocally(idea) {
+      let base = idea;
+
+      // Add depth
+      if (idea.toLowerCase().includes("business")) {
+        base = "Write a complete professional business plan. Include target audience, market research, financial projections, risks, and a step-by-step strategy. Focus on: " + idea;
+      } else if (idea.toLowerCase().includes("story")) {
+        base = "Write a vivid, detailed story with characters, setting, plot twists, and emotional depth. The story idea is: " + idea;
+      } else if (idea.toLowerCase().includes("app")) {
+        base = "Design a detailed mobile app concept with features, user experience flow, monetization options, and tech stack. The idea is: " + idea;
+      } else {
+        base = "Write a detailed, creative, and professional response for: " + idea;
+      }
+
+      return base;
     }
   </script>
 </body>
