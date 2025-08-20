@@ -1,356 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Prompt ⚡️Magic by JI Innovations</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <title>Prompt ⚡ Magic</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#0d0f14; --card:#141a24; --text:#e8eeff; --muted:#8aa0c8;
-      --cyan:#00f3ff; --pink:#ff3df5; --blue:#3aa3ff; --yellow:#ffd94a; --neon:#34ffc8;
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; background: radial-gradient(1000px 500px at 20% -20%, rgba(0,243,255,.12), transparent 60%),
-                         radial-gradient(900px 600px at 110% 120%, rgba(255,61,245,.12), transparent 60%),
-                         var(--bg);
-      color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      display:flex; align-items:center; justify-content:center; padding:24px;
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3em;
+      margin-bottom: 5px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
-    .wrap{width:100%; max-width:980px}
-    .card{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; box-shadow:0 12px 24px rgba(0,0,0,.35)}
-    .stack{display:grid; gap:12px}
-    h1{margin:0; text-align:center; line-height:1.15}
-    .titleTop{
-      font-weight:900; font-size:38px; letter-spacing:.2px;
-      background:linear-gradient(90deg,var(--cyan),var(--pink)); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      text-shadow:0 0 20px rgba(0,243,255,.2), 0 0 28px rgba(255,61,245,.15);
+
+    h1 .bolt {
+      color: #ffff33; /* yellow bolt */
+      margin: 0 3px;
     }
-    .titleSub{margin-top:4px; font-size:16px; text-align:center; font-weight:800}
-    .titleSub .J{color:var(--blue)}
-    .titleSub .I{color:var(--yellow)}
-    .titleSub .bolt{color:#ffe44d; text-shadow:0 0 6px rgba(255,228,77,.9)}
-    .titleSub .Innov{color:var(--pink)}
-    label{color:#cfe1ff; font-weight:600}
-    textarea,input,select{
-      width:100%; background:#0f1420; color:var(--text); border:1px solid rgba(255,255,255,.12);
-      border-radius:12px; padding:12px; outline:none
+
+    h2 {
+      font-size: 1.2em;
+      margin-top: 0;
+      margin-bottom: 30px;
+      color: #00aaff; /* blue */
+      font-weight: bold;
     }
-    textarea::placeholder,input::placeholder{color:var(--muted)}
-    textarea:focus,input:focus,select:focus{border-color:var(--neon)}
-    .btn{border:0; border-radius:12px; padding:12px 14px; font-weight:900; cursor:pointer}
-    .primary{background:linear-gradient(90deg,var(--cyan),var(--pink)); color:#0b0f1a}
-    .row{display:grid; grid-template-columns:1fr; gap:12px}
-    .row3{display:grid; grid-template-columns:1fr; gap:12px}
-    .muted{color:var(--muted); font-size:12px}
-    .out{white-space:pre-wrap; min-height:140px; background:#0c111b; border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:12px}
-    .footer{margin-top:10px; text-align:center; color:var(--muted); font-size:12px}
-    details{border:1px dashed rgba(255,255,255,.12); border-radius:12px; padding:10px}
-    summary{cursor:pointer; color:#9bd4ff}
-    @media (min-width:780px){ .row{grid-template-columns:2fr 1fr} .row3{grid-template-columns:1fr 1fr 1fr} }
+    h2 .bolt {
+      color: #ffff33; /* yellow bolt */
+    }
+
+    textarea {
+      width: 90%;
+      max-width: 600px;
+      height: 100px;
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+    }
+
+    select, input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1em;
+    }
+
+    button {
+      background: #ff00cc;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff33ff;
+    }
+
+    .output-wrapper {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    .output-header {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.4em;
+      background: linear-gradient(90deg, #ff00cc, #00ffff);
+      color: white;
+      text-align: center;
+      padding: 8px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      box-shadow: 0 0 12px #ff00cc;
+    }
+
+    .output {
+      background: #222;
+      padding: 15px;
+      border-radius: 0 0 10px 10px;
+      white-space: pre-wrap;
+      font-size: 1.1em;
+      border: 1px solid #444;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="stack">
-      <div>
-        <h1 class="titleTop">Prompt ⚡️Magic</h1>
-        <div class="titleSub">by <span class="J">J</span><span class="I">I</span> <span class="bolt">⚡️</span> <span class="Innov">Innovations</span></div>
-      </div>
+  <h1>Prompt<span class="bolt">⚡</span>Magic</h1>
+  <h2>by JI <span class="bolt">⚡</span> Innovations</h2>
 
-      <div class="card">
-        <div class="stack">
-          <div class="row">
-            <div>
-              <label for="idea">Your idea</label>
-              <textarea id="idea" placeholder="e.g., Create a business plan for XYZ, including all costs and a 12-month timeline."></textarea>
-            </div>
-            <div>
-              <label for="api">Optional OpenAI API key (for deeper refinement)</label>
-              <input id="api" type="password" placeholder="Paste key (kept only in this page)"/>
-              <div class="muted">If the browser blocks the call (CORS), it automatically falls back to offline refinement.</div>
-            </div>
-          </div>
+  <textarea id="userIdea" placeholder="Type your idea here..."></textarea><br>
 
-          <div class="row3">
-            <div>
-              <label for="category">Style</label>
-              <select id="category">
-                <option value="auto" selected>Auto-detect</option>
-                <option value="business">Business plan</option>
-                <option value="marketing">Marketing plan</option>
-                <option value="ads">Ads / Campaign</option>
-                <option value="logo">Logo / Branding</option>
-                <option value="naming">Naming</option>
-                <option value="slogan">Slogan / Tagline</option>
-                <option value="product">Product / App plan</option>
-                <option value="uxcopy">UX Copy</option>
-                <option value="landing">Landing Page</option>
-                <option value="seo">SEO Outline</option>
-                <option value="pitch">Pitch Deck</option>
-                <option value="video">Video Script</option>
-                <option value="social">Social Post</option>
-                <option value="email">Email</option>
-                <option value="resume">Resume</option>
-                <option value="grant">Grant / Proposal</option>
-                <option value="research">Research Brief</option>
-                <option value="code">Code Plan</option>
-                <option value="creative">Creative Writing</option>
-                <option value="art">AI Art Prompt</option>
-                <option value="generic">Generic</option>
-              </select>
-            </div>
-            <div>
-              <label for="tone">Tone</label>
-              <select id="tone">
-                <option value="">Auto</option>
-                <option>professional</option>
-                <option>creative</option>
-                <option>funny</option>
-                <option>persuasive</option>
-                <option>casual</option>
-              </select>
-            </div>
-            <div>
-              <label for="depth">Depth</label>
-              <select id="depth">
-                <option>Basic</option>
-                <option selected>Detailed</option>
-                <option>Expert-Level</option>
-              </select>
-            </div>
-          </div>
+  <label for="tone">Tone:</label>
+  <select id="tone">
+    <option value="default">Default</option>
+    <option value="professional">Professional</option>
+    <option value="casual">Casual</option>
+    <option value="creative">Creative</option>
+    <option value="detailed">Detailed</option>
+  </select>
 
-          <div class="row3">
-            <div>
-              <label for="format">Format</label>
-              <select id="format">
-                <option>Paragraph</option>
-                <option>Bullets</option>
-                <option>Step-by-Step Guide</option>
-              </select>
-            </div>
-          </div>
+  <label for="depth">Depth:</label>
+  <select id="depth">
+    <option value="surface">Surface</option>
+    <option value="moderate">Moderate</option>
+    <option value="deep">Deep</option>
+  </select>
 
-          <details>
-            <summary>How this works</summary>
-            <div class="muted">
-              It extracts a subject from your idea (e.g., “<i>building a call center for treatment</i>”), detects hints (costs, timeline, staffing, compliance), and rewrites a new, specific prompt around that subject. 
-              If you add an API key, it asks a model for a deeper rewrite and still returns only the final prompt.
-            </div>
-          </details>
+  <br>
+  <input type="text" id="apiKey" placeholder="Optional: Enter API Key for advanced results">
+  <br>
 
-          <button class="btn primary" id="generate">Generate Prompt</button>
+  <button onclick="generatePrompt()">✨ Generate Prompt</button>
 
-          <div class="stack">
-            <label>Refined prompt</label>
-            <div id="out" class="out">Your refined prompt will appear here…</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer">© <span id="yr"></span> JI ⚡️ Innovations</div>
-    </div>
+  <div class="output-wrapper">
+    <div class="output-header">⚡ Refined Prompt ⚡</div>
+    <div class="output" id="output"></div>
   </div>
 
   <script>
-    const $ = id => document.getElementById(id);
-    $('yr').textContent = new Date().getFullYear();
+    function generatePrompt() {
+      const idea = document.getElementById("userIdea").value.trim();
+      const tone = document.getElementById("tone").value;
+      const depth = document.getElementById("depth").value;
+      const apiKey = document.getElementById("apiKey").value.trim();
 
-    const lc = s => (s||'').toLowerCase();
-    const clean = s => (s||'').trim().replace(/\s{2,}/g,' ').replace(/[\s.]+$/,'').trim();
-
-    // pull the subject (not a verb-echo)
-    function extractSubject(raw){
-      if(!raw) return '';
-      let s = ' ' + raw.trim();
-      s = s.replace(/^\s*(please|can you|could you|would you|help me|i (?:want|need|would like|wanna) to|we need to)\s+/i,'');
-      const forMatch = s.match(/\bfor\s+([^.,;]+)(?=[.,;]|$)/i);
-      if(forMatch && forMatch[1].trim().length >= 4) return forMatch[1].trim();
-      s = s.replace(/^\s*(create|write|make|build|design|draft|develop|generate|prepare|plan)\s+(?:an?\s+|the\s+)?/i,'');
-      s = s.replace(/[.?!\s]+$/,'').trim();
-      return s;
-    }
-
-    function detectHints(txt){
-      const t = lc(txt);
-      return {
-        costs: /cost|budget|pricing|expenses|capex|opex|financial|projection/.test(t),
-        timeline: /timeline|time\s*line|deadline|by\s+\w+|within\s+\w+|12\s*month|year/.test(t),
-        staffing: /hire|staff|team|roles|headcount|agents?|recruit|shift/.test(t),
-        metrics: /kpi|metric|goal|target|forecast|roi/.test(t),
-        compliance: /compliance|hipaa|gdpr|pci|regulation|licensing/.test(t),
-        location: (txt.match(/\bin\s+([A-Z][A-Za-z\-\s]+)(?=[.,;]|$)/) || [,''])[1]
-      };
-    }
-
-    function detectIntent(txt){
-      const x = lc(txt);
-      if(/\bbusiness\s*plan|startup|company|store|shop|venture|call\s*center\b/.test(x)) return 'business';
-      if(/\bmarketing|campaign|ads?|media|growth|funnel\b/.test(x)) return 'marketing';
-      if(/\bad|advert|facebook|instagram|tiktok|google\s*ads|copy\b/.test(x)) return 'ads';
-      if(/\blogo|brand\s*identity|wordmark|visual\s*identity\b/.test(x)) return 'logo';
-      if(/\bname|naming\b/.test(x)) return 'naming';
-      if(/\bslogan|tagline|headline\b/.test(x)) return 'slogan';
-      if(/\bapp|website|web\s*site|saas|platform|product\b/.test(x)) return 'product';
-      if(/\bux|microcopy|cta|onboarding\b/.test(x)) return 'uxcopy';
-      if(/\blanding\s?page|homepage\b/.test(x)) return 'landing';
-      if(/\bseo|keywords?|meta|search\b/.test(x)) return 'seo';
-      if(/\bpitch\s*deck|investor|slides?\b/.test(x)) return 'pitch';
-      if(/\bvideo|script|storyboard|youtube|reel\b/.test(x)) return 'video';
-      if(/\bpost|tweet|thread|caption|social\b/.test(x)) return 'social';
-      if(/\bemail|newsletter|cold\s*email\b/.test(x)) return 'email';
-      if(/\bresume|cv|cover\s*letter\b/.test(x)) return 'resume';
-      if(/\bgrant|proposal|rfp\b/.test(x)) return 'grant';
-      if(/\bresearch|analysis|report|brief\b/.test(x)) return 'research';
-      if(/\bcode|api|backend|frontend|database|react|node|python\b/.test(x)) return 'code';
-      if(/\bstory|novel|poem|horror|romance|thriller|script\b/.test(x)) return 'creative';
-      if(/\bmidjourney|stable\s*diffusion|ai\s*art|image\s*prompt\b/.test(x)) return 'art';
-      return 'generic';
-    }
-
-    function applyTone(text, tone){
-      if(!tone) return text;
-      // Light-touch hint; no meta “tone:” wording — we phrase it naturally
-      return text.replace(/\.?$/, ` Use a ${tone} style.`);
-    }
-
-    function applyDepth(text, depth){
-      if(depth === 'Basic') return text.replace(/(detailed|complete|comprehensive)/gi, 'concise');
-      if(depth === 'Expert-Level') return text.replace(/(detailed|complete|comprehensive|practical)/gi, 'expert-level and thorough');
-      return text; // Detailed = default
-    }
-
-    function applyFormat(text, format){
-      if(format === 'Bullets') return text.replace(/\.?$/, ' Present the result as concise bullet points.');
-      if(format === 'Step-by-Step Guide') return text.replace(/\.?$/, ' Present the result as a clear step-by-step guide.');
-      return text; // Paragraph (default) — no extra instruction
-    }
-
-    const builders = {
-      business: (sub,h)=> {
-        const extra=[];
-        if(h.costs) extra.push("startup and operating costs with key assumptions");
-        if(h.timeline) extra.push("a practical launch timeline with milestones");
-        if(h.staffing) extra.push("staffing plan with roles and headcount");
-        if(h.metrics) extra.push("KPIs and a first-year projection");
-        if(h.compliance) extra.push("relevant compliance requirements");
-        if(extra.length===0) extra.push("market analysis, pricing model, go-to-market strategy, and a simple first-year projection");
-        const where = h.location ? ` in ${h.location}` : "";
-        return `Write a detailed business plan for ${sub}${where}, including ${extra.join(", ")}.`;
-      },
-      marketing: (sub)=> `Create a practical marketing plan for ${sub} with a clear goal, sharp positioning, the first channels to test, three creative angles, a starter budget split, and success criteria for a two-week experiment.`,
-      ads: (sub)=> `Write three paid social ad variants for ${sub}, each with a strong hook, one concrete benefit, a proof idea, and a direct call-to-action.`,
-      logo: (sub)=> `Propose two logo directions for ${sub}: one bold and geometric, one minimal and typographic, each with a one-sentence rationale and a quick usage mock idea.`,
-      naming: (sub)=> `Propose eight strong names for ${sub}, each with a short meaning note and a plausible .com idea.`,
-      slogan: (sub)=> `Write ten tight taglines for ${sub}, each under seven words and focused on one sharp benefit.`,
-      product: (sub,h)=> {
-        const add=[]; if(h.timeline) add.push("a staged v1 timeline"); if(h.costs) add.push("rough build/operate cost tiers");
-        return `Outline a v1 product plan for ${sub} with the primary user journey, must-have features only, a trimmed scope that still delivers value${add.length?`, ${add.join(", ")}`:""}, and a short launch checklist.`;
-      },
-      uxcopy: (sub)=> `Write crisp UX copy for ${sub}: a clear headline, one-sentence value, three short benefits, and two call-to-action options.`,
-      landing: (sub)=> `Draft landing page copy for ${sub} with a strong headline, subhead, three benefits, a proof idea, and one clear call-to-action.`,
-      seo: (sub)=> `Create an SEO outline for ${sub} with a primary keyword, supporting keywords, a suggested title tag, and a meta description under 160 characters.`,
-      pitch: (sub)=> `Draft a concise pitch deck outline for ${sub} covering problem, solution, market, model, traction, go-to-market, competition, team, and a clear ask.`,
-      video: (sub)=> `Write a 45-second video script for ${sub} with a hook in the first two seconds, a simple story arc, one benefit, and a direct call-to-action.`,
-      social: (sub)=> `Write three social posts for ${sub}, each with a clear takeaway and a short call-to-action; include one variant formatted as a hook plus two lines.`,
-      email: (sub)=> `Write a short cold email for ${sub} with a tight subject, one-sentence value, one proof, and a single call-to-action.`,
-      resume: (sub)=> `Rewrite resume bullets for ${sub} with strong action verbs, measurable outcomes, and concise phrasing suitable for a one-page layout.`,
-      grant: (sub)=> `Draft a grant proposal summary for ${sub} with the need, proposed solution, expected impact, a simple budget, and a realistic timeline.`,
-      research: (sub)=> `Create a quick research plan for ${sub}: what to learn, where to look, the key terms to use, and how to judge viability in a day.`,
-      code: (sub)=> `Outline a development plan for ${sub} with minimal architecture, core data models, key endpoints, and a simple step-by-step build order.`,
-      creative: (sub)=> `Write a short story based on ${sub} with a striking opening image, a rising turn, and a memorable last line.`,
-      art: (sub)=> `Create an image prompt about ${sub} with a clear focal point, evocative lighting, and a defined composition.`,
-      generic: (sub,h)=> {
-        const extra=[]; if(h.costs) extra.push("costs with key assumptions"); if(h.timeline) extra.push("timeline and milestones"); if(h.metrics) extra.push("clear success metrics");
-        return `Produce a clear, complete deliverable for ${sub}${extra.length?`, including ${extra.join(", ")}`:""}.`;
-      }
-    };
-
-    function offlineRefine(){
-      const raw = $('idea').value || '';
-      const subject = extractSubject(raw);
-      if(!subject) return "Rewrite this idea as a clear, specific request with the exact deliverable, the key components to include, and any constraints that matter.";
-
-      const hints = detectHints(raw);
-      const chosen = $('category').value;
-      const tone = $('tone').value;
-      const depth = $('depth').value;
-      const format = $('format').value;
-
-      const cat = chosen === 'auto' ? detectIntent(raw) : chosen;
-      const fn = builders[cat] || builders.generic;
-      let prompt = fn(subject, hints);
-
-      prompt = applyDepth(prompt, depth);
-      prompt = applyTone(prompt, tone);
-      prompt = applyFormat(prompt, format);
-
-      return prompt;
-    }
-
-    function sanitize(s){
-      if(!s) return "";
-      let t = s.trim();
-      t = t.replace(/```[\s\S]*?```/g, m => m.replace(/```[a-zA-Z]*\n?|```/g, ""));
-      t = t.replace(/^(you are|act as|include|format|tone|length|rules?:|requirements?:)/gim, '').trim();
-      t = t.replace(/^\s*[-*].*$/gim, '').replace(/^#{1,6}\s.*$/gm, '').trim();
-      t = t.replace(/\n{2,}/g,' ').replace(/\s{2,}/g,' ').trim();
-      return t;
-    }
-
-    async function refineWithOpenAI(idea, key){
-      const tone = $('tone').value || 'auto';
-      const depth = $('depth').value || 'Detailed';
-      const format = $('format').value || 'Paragraph';
-      const chosen = $('category').value;
-      const subject = extractSubject(idea);
-      const cat = chosen === 'auto' ? detectIntent(idea) : chosen;
-
-      const sys = "Transform the user's rough idea into a single, clear, powerful prompt. Include the true subject (not a verbatim copy), add missing essentials, avoid meta/rules/headings, and output only the final prompt.";
-      const user = JSON.stringify({ idea: idea, subject, category: cat, tone, depth, format });
-
-      const r = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Authorization": "Bearer " + key },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          temperature: 0.4,
-          messages: [
-            { role: "system", content: sys },
-            { role: "user", content: user }
-          ],
-          max_tokens: 360
-        })
-      });
-      if(!r.ok) throw new Error("HTTP " + r.status);
-      const j = await r.json();
-      return sanitize(j?.choices?.[0]?.message?.content || "");
-    }
-
-    $('generate').addEventListener('click', async () => {
-      const idea = $('idea').value.trim();
-      const key = $('api').value.trim();
-      const out = $('out');
-
-      if(!idea){ out.textContent = "⚠️ Please enter an idea."; return; }
-
-      out.textContent = "✨ Refining…";
-
-      if(key){
-        try{
-          const refined = await refineWithOpenAI(idea, key);
-          out.textContent = refined || offlineRefine();
-          return;
-        }catch(err){
-          out.textContent = offlineRefine() + "\n\n(ℹ️ Online refinement failed; used offline mode.)";
-          return;
-        }
+      if (!idea) {
+        document.getElementById("output").innerText = "Please enter an idea first!";
+        return;
       }
 
-      out.textContent = offlineRefine();
-    });
+      let refined = "";
+
+      if (tone === "professional") {
+        refined += `Write a structured, professional prompt that emphasizes clarity and depth. `;
+      } else if (tone === "casual") {
+        refined += `Create a relaxed, easy-to-read prompt with a friendly tone. `;
+      } else if (tone === "creative") {
+        refined += `Generate a unique, imaginative prompt with vivid detail. `;
+      } else if (tone === "detailed") {
+        refined += `Expand the prompt into a highly detailed version with step-by-step clarity. `;
+      }
+
+      if (depth === "moderate") {
+        refined += `Add moderate elaboration to ensure thorough coverage of the idea. `;
+      } else if (depth === "deep") {
+        refined += `Dive deep into specifics, ensuring the prompt captures multiple dimensions of the idea. `;
+      }
+
+      refined += `Focus specifically on: "${idea}".`;
+
+      if (apiKey) {
+        refined += ` Use advanced AI to ensure maximum precision, context awareness, and creative flexibility.`;
+      }
+
+      document.getElementById("output").innerText = refined;
+    }
   </script>
 </body>
 </html>
